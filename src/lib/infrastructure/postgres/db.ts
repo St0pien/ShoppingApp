@@ -1,5 +1,13 @@
+import { NODE_ENV } from '@/lib/constant';
 import { createKysely } from '@vercel/postgres-kysely';
-import { Generated, Selectable, ColumnType } from 'kysely';
+import {
+  Generated,
+  Selectable,
+  ColumnType,
+  PostgresDialect,
+  Kysely
+} from 'kysely';
+import { Pool } from 'pg';
 
 interface CategoriesTable {
   id: Generated<number>;
@@ -32,4 +40,23 @@ interface Database {
   listContents: ListContentsTable;
 }
 
-export const db = createKysely<Database>();
+function buildDB() {
+  if (NODE_ENV == 'production') {
+    return createKysely<Database>();
+  }
+
+  const dialect = new PostgresDialect({
+    pool: new Pool({
+      database: 'verceldb',
+      host: 'localhost',
+      user: 'postgres',
+      password: 'root',
+      port: 5434,
+      max: 10
+    })
+  });
+
+  return new Kysely<Database>({ dialect });
+}
+
+export const db = buildDB();

@@ -1,6 +1,6 @@
 import Drawer from '@/components/Drawer';
 import TopBar from '@/components/TopBar';
-import { db } from '@/lib/infrastructure/db';
+import { db } from '@/lib/infrastructure/postgres/db';
 
 export default async function Lists() {
   const test = await db.selectFrom('items').selectAll().execute();

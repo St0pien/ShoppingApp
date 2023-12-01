@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup:postgres": "./src/lib/infrastructure/postgres/local.sh",
+    "postgres:migrate": "tsx ./src/lib/infrastructure/postgres/migrate.ts"
   },
   "dependencies": {
     "@vercel/postgres-kysely": "^0.6.0",
@@ -26,8 +28,10 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "pg": "^8.11.3",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
+    "tsx": "^4.6.1",
     "typescript": "^5"
   }
 }
