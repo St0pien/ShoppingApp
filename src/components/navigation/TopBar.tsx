@@ -1,23 +1,27 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { MouseEventHandler } from 'react';
 
 interface Props {
-  title: string;
-  children: ReactNode;
+  title?: string;
+  isOpen: boolean;
+  toggle: () => void;
 }
 
-export default function TopBar({ title, children }: Props) {
-  const [toggled, setToggled] = useState(false);
+export default function TopBar({ title, toggle, isOpen }: Props) {
+  const onHamburgerTap: MouseEventHandler = (e) => {
+    e.stopPropagation();
+    toggle();
+  };
 
   return (
     <>
-      <div className='w-full h-16 flex items-center bg-black'>
+      <header className='w-full h-16 fixed top-0 flex items-center bg-black z-10'>
         <button
-          className='w-16 h-full flex items-center justify-center relative z-10'
-          onClick={() => setToggled(!toggled)}
+          className='w-16 h-full flex items-center justify-center'
+          onClick={onHamburgerTap}
         >
-          {toggled ? (
+          {isOpen ? (
             <svg
               className='w-6 h-6 text-gray-800 dark:text-white'
               aria-hidden='true'
@@ -27,9 +31,9 @@ export default function TopBar({ title, children }: Props) {
             >
               <path
                 stroke='currentColor'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-                stroke-width='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
                 d='m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6'
               />
             </svg>
@@ -52,8 +56,7 @@ export default function TopBar({ title, children }: Props) {
           )}
         </button>
         <h1 className='text-2xl mx-4 text-primary-800 font-bold'>{title}</h1>
-      </div>
-      {toggled ? children : null}
+      </header>
     </>
   );
 }

@@ -2,6 +2,9 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Navigation from '@/components/navigation/Navigation';
+import clsx from 'clsx';
+import { appRoutes } from '@/constant/routes';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,8 +20,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={`${inter.className} bg-gradient-to-b from-gray-950`}>
-        {children}
+      <body
+        className={clsx(
+          inter.className,
+          'bg-gradient-to-b from-gray-950 touch-pan-y'
+        )}
+      >
+        <Navigation routes={appRoutes}>
+          <main className='mt-16'>{children}</main>
+        </Navigation>
       </body>
     </html>
   );

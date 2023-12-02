@@ -1,5 +1,3 @@
-import Drawer from '@/components/Drawer';
-import TopBar from '@/components/TopBar';
 import { db } from '@/lib/infrastructure/postgres/db';
 
 export default async function Lists() {
@@ -7,10 +5,7 @@ export default async function Lists() {
 
   return (
     <>
-      <TopBar title='Shopping lists'>
-        <Drawer />
-      </TopBar>
-      <main className='flex min-h-screen flex-col items-center p-10'>
+      <div className='flex min-h-screen flex-col items-center p-10'>
         <div className='w-full mb-12'>
           <h1 className='text-4xl tracking-wider text-primary-500'>
             Shopping list
@@ -26,7 +21,7 @@ export default async function Lists() {
             <p>{item.category}</p>
           </div>
         ))}
-      </main>
+      </div>
     </>
   );
 }

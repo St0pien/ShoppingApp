@@ -19,4 +19,4 @@ import { db } from './db';
   console.log(results);
 
   await db.destroy();
-})();
+})().catch((e) => console.log(e));

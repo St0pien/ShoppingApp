@@ -1,4 +1,4 @@
-import { NODE_ENV } from '@/lib/constant';
+import { NODE_ENV } from '@/constant/env';
 import { createKysely } from '@vercel/postgres-kysely';
 import {
   Generated,
