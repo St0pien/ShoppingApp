@@ -5,7 +5,8 @@ import {
   Selectable,
   ColumnType,
   PostgresDialect,
-  Kysely
+  Kysely,
+  Updateable
 } from 'kysely';
 import { Pool } from 'pg';
 
@@ -15,6 +16,7 @@ interface CategoriesTable {
 }
 
 export type Categories = Selectable<CategoriesTable>;
+export type UpdateCategories = Updateable<CategoriesTable>;
 
 interface ItemsTable {
   id: Generated<number>;
@@ -33,7 +35,7 @@ interface ListContentsTable {
   itemId: number; // FK
 }
 
-interface Database {
+export interface Database {
   categories: CategoriesTable;
   items: ItemsTable;
   lists: ListsTable;
