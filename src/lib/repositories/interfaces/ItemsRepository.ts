@@ -1,5 +1,5 @@
-import { Item } from '@/models/Item';
+import { ItemModel } from '@/models/ItemModel';
 
 export interface ItemsRepository {
-  fetchAll(): Promise<Item[]>;
+  fetchAll(): Promise<ItemModel[]>;
 }

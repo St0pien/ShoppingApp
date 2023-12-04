@@ -1,4 +1,4 @@
-export class Item {
+export class ItemModel {
   readonly name: string;
   readonly category: string | null;
   constructor({ name, category }: { name: string; category: string | null }) {
