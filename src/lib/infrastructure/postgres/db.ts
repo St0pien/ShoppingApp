@@ -61,4 +61,4 @@ function buildDB() {
   return new Kysely<Database>({ dialect });
 }
 
-export const db = buildDB();
+export const pgClient = buildDB();

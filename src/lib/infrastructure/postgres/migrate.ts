@@ -1,11 +1,11 @@
 import { FileMigrationProvider, Migrator } from 'kysely';
 import fs from 'fs/promises';
 import path from 'path';
-import { db } from './db';
+import { pgClient } from './db';
 
 (async () => {
   const migrator = new Migrator({
-    db,
+    db: pgClient,
     provider: new FileMigrationProvider({
       fs,
       path,
@@ -18,5 +18,5 @@ import { db } from './db';
   console.log(error);
   console.log(results);
 
-  await db.destroy();
+  await pgClient.destroy();
 })().catch((e) => console.log(e));

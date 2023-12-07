@@ -1,5 +1,3 @@
-'use client';
-
 import { AppRouteName, AppRoutes } from '@/constant/routes';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
