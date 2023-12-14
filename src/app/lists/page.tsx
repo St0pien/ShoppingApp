@@ -1,6 +1,6 @@
 import { pgClient } from '@/lib/infrastructure/postgres/db';
 
-export default async function PageLists() {
+export default async function ListsPage() {
   const test = await pgClient.selectFrom('items').selectAll().execute();
 
   return (

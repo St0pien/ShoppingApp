@@ -1,5 +1,5 @@
 import ItemForm from '@/components/items/ItemForm';
-import { editItem } from '@/lib/actions/items/editItem';
+import { editItemAction } from '@/lib/actions/items/editItemAction';
 import { repos } from '@/lib/repositories';
 
 interface Props {
@@ -8,11 +8,11 @@ interface Props {
   };
 }
 
-export default async function PageEditItem({ params: { id } }: Props) {
+export default async function EditItemPage({ params: { id } }: Props) {
   const item = await repos.items.fetch(id);
   const categories = await repos.categories.fetchAll();
 
-  const editItemWithId = editItem.bind(null, id);
+  const editItemWithId = editItemAction.bind(null, id);
 
   return (
     <div>
