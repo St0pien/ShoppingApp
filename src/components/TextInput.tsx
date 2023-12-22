@@ -42,7 +42,6 @@ export default function TextInput({
         initial={{
           y: -labelMargin
         }}
-        onAnimationStart={() => console.log('hi')}
         animate={{ y: labelOutside ? -labelMargin : '-50%' }}
         transition={{
           duration: 0.15
