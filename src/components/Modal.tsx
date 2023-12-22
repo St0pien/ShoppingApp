@@ -1,3 +1,4 @@
+// eslint-disable-next-line next-recommended/unnecessarily-client-declaration
 'use client';
 
 import { Dialog } from '@headlessui/react';

@@ -19,6 +19,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children, modal }: Props) {
+  throw new Error("it's me mario");
+
   return (
     <html lang='en'>
       <body

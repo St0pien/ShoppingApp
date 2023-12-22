@@ -3,6 +3,7 @@ import { repos } from '@/lib/repositories';
 
 export default async function ItemsPage() {
   const items = await repos.items.fetchAll();
+
   return (
     <>
       {items.map((item) => (
