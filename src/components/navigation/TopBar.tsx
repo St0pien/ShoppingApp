@@ -16,7 +16,7 @@ export default function TopBar({ title, toggle, isOpen }: Props) {
 
   return (
     <>
-      <header className='w-full h-16 fixed top-0 flex items-center bg-black z-10'>
+      <header className='w-full h-16 fixed top-0 flex items-center bg-black z-20'>
         <button
           className='w-16 h-full flex items-center justify-center'
           onClick={onHamburgerTap}

@@ -63,7 +63,7 @@ export default function SideBar({ isOpen, routeName, routes }: Props) {
     <AnimatePresence>
       {isOpen && (
         <motion.nav
-          className='w-2/3 h-screen fixed top-0 left-0 pt-20 rounded-md bg-gradient-to-r from-black to-gray-900 ring-3 ring-red-900'
+          className='w-2/3 h-screen fixed top-0 left-0 pt-20 rounded-md bg-gradient-to-r from-black to-gray-900 ring-3 ring-red-900 z-10'
           initial={{ x: '-100%' }}
           animate={{ x: '0' }}
           exit={{ x: '-100%' }}

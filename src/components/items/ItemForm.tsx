@@ -4,6 +4,7 @@ import { CategoryModel } from '@/lib/models/CategoryModel';
 import { ItemModel } from '@/lib/models/ItemModel';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import TextInput from '../TextInput';
 
 interface Props {
   action: (data: FormData) => unknown;
@@ -22,7 +23,8 @@ export default function ItemForm({ action, item, categories }: Props) {
   const [category, setCategory] = useState(item?.category?.id);
 
   return (
-    <form className='flex flex-col items-center' action={action}>
+    <form className='flex flex-col items-cenjjter' action={action}>
+      <TextInput className='w-full text-lg' name='name' label="Item's name" initialValue={item?.name} />
       <input
         id='name'
         name='name'

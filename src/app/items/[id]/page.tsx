@@ -15,7 +15,7 @@ export default async function EditItemPage({ params: { id } }: Props) {
   const editItemWithId = editItemAction.bind(null, id);
 
   return (
-    <div>
+    <div className='w-full'>
       <h1 className='text-3xl text-primary-600 font-bold mb-10'>Edit item</h1>
       <ItemForm action={editItemWithId} item={item} categories={categories} />
     </div>
