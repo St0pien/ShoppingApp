@@ -24,7 +24,12 @@ export default function ItemForm({ action, item, categories }: Props) {
 
   return (
     <form className='flex flex-col items-cenjjter' action={action}>
-      <TextInput className='w-full text-lg' name='name' label="Item's name" initialValue={item?.name} />
+      <TextInput
+        className='w-full text-lg'
+        name='name'
+        label="Item's name"
+        initialValue={item?.name}
+      />
       <input
         id='name'
         name='name'

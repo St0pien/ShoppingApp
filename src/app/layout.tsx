@@ -5,6 +5,8 @@ import './globals.css';
 import Navigation from '@/components/navigation/Navigation';
 import clsx from 'clsx';
 import { appRoutes } from '@/constant/routes';
+import { Toaster } from 'react-hot-toast';
+import { rose } from 'tailwindcss/colors';
 
 interface Props {
   children: ReactNode;
@@ -33,6 +35,20 @@ export default function RootLayout({ children, modal }: Props) {
           </main>
         </Navigation>
         {modal}
+        <Toaster
+          position='bottom-center'
+          toastOptions={{
+            duration: 2500,
+            style: {
+              background: '#111',
+              color: rose['500']
+            },
+            iconTheme: {
+              primary: rose['500'],
+              secondary: 'black'
+            }
+          }}
+        />
       </body>
     </html>
   );

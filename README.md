@@ -19,6 +19,7 @@ yarn next start
 
 ### TODO
 * Finish edit item form, improve it's UI
-* Error handling
+* ~~Error handling~~
+* replace actions with route handlers (to enhance interactivity with react-hot-toast)
 * Regex-based path matching to display apropriate title 
 * Prevent loosing unsaved changes in forms (?)

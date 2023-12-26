@@ -1,10 +1,19 @@
-// eslint-disable-next-line
 'use client';
 
-export default function Error() {
-  return (
-    <>
-      <h1>Error in modal haha</h1>
-    </>
-  );
+import { AppError } from '@/lib/errors/Error';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+
+interface Props {
+  error: AppError;
+}
+
+export default function Error({ error }: Props) {
+  const { message } = JSON.parse(error.message) as { message: string };
+
+  useEffect(() => {
+    toast.error(message);
+  }, [message]);
+
+  return null;
 }
