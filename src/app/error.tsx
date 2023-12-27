@@ -8,10 +8,17 @@ interface Props {
 }
 
 export default function Error({ error }: Props) {
-  const { status, message } = JSON.parse(error.message) as {
-    status: number;
-    message: string;
-  };
+  let status: number, message: string;
+
+  try {
+    ({ status, message } = JSON.parse(error.message) as {
+      status: number;
+      message: string;
+    });
+  } catch {
+    status = 500;
+    message = error.message;
+  }
 
   return (
     <div className='flex items-center flex-col'>

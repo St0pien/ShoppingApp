@@ -29,12 +29,12 @@ export default function RootLayout({ children, modal }: Props) {
           'bg-gradient-to-b from-gray-950 touch-pan-y'
         )}
       >
+        {modal}
         <Navigation routes={appRoutes}>
           <main className='mt-16 flex min-h-screen flex-col items-center p-10'>
             {children}
           </main>
         </Navigation>
-        {modal}
         <Toaster
           position='bottom-center'
           toastOptions={{

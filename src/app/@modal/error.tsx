@@ -9,7 +9,13 @@ interface Props {
 }
 
 export default function Error({ error }: Props) {
-  const { message } = JSON.parse(error.message) as { message: string };
+  let message: string;
+
+  try {
+    ({ message } = JSON.parse(error.message) as { message: string });
+  } catch {
+    message = error.message;
+  }
 
   useEffect(() => {
     toast.error(message);
