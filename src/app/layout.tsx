@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { cookies } from 'next/headers';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -7,6 +8,7 @@ import clsx from 'clsx';
 import { appRoutes } from '@/constant/routes';
 import { Toaster } from 'react-hot-toast';
 import { rose } from 'tailwindcss/colors';
+import { TRPCReactProvider } from '@/trpc/react';
 
 interface Props {
   children: ReactNode;
@@ -29,26 +31,28 @@ export default function RootLayout({ children, modal }: Props) {
           'bg-gradient-to-b from-gray-950 touch-pan-y'
         )}
       >
-        {modal}
-        <Navigation routes={appRoutes}>
-          <main className='mt-16 flex min-h-screen flex-col items-center p-10'>
-            {children}
-          </main>
-        </Navigation>
-        <Toaster
-          position='bottom-center'
-          toastOptions={{
-            duration: 2500,
-            style: {
-              background: '#111',
-              color: rose['500']
-            },
-            iconTheme: {
-              primary: rose['500'],
-              secondary: 'black'
-            }
-          }}
-        />
+        <TRPCReactProvider cookies={cookies().toString()}>
+          {modal}
+          <Navigation routes={appRoutes}>
+            <main className='mt-16 flex min-h-screen flex-col items-center p-10'>
+              {children}
+            </main>
+          </Navigation>
+          <Toaster
+            position='bottom-center'
+            toastOptions={{
+              duration: 2500,
+              style: {
+                background: '#111',
+                color: rose['500']
+              },
+              iconTheme: {
+                primary: rose['500'],
+                secondary: 'black'
+              }
+            }}
+          />
+        </TRPCReactProvider>
       </body>
     </html>
   );
