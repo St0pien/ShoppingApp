@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { InputHTMLAttributes, useState } from 'react';
+import { type InputHTMLAttributes, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -11,7 +11,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   labelMargin?: number;
 }
 
-export default function TextInput({
+export function TextInput({
   name,
   label,
   initialValue,

@@ -1,5 +1,5 @@
-import Modal from '@/components/Modal';
-import ItemForm from '@/components/items/ItemForm';
+import { Modal } from '@/components/Modal';
+import { ItemForm } from '@/components/items/ItemForm';
 import { editItemAction } from '@/lib/actions/items/editItemAction';
 import { repos } from '@/lib/repositories';
 

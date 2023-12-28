@@ -1,10 +1,10 @@
 'use client';
 
-import { CategoryModel } from '@/lib/models/CategoryModel';
-import { ItemModel } from '@/lib/models/ItemModel';
+import { type CategoryModel } from '@/lib/models/CategoryModel';
+import { type ItemModel } from '@/lib/models/ItemModel';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import TextInput from '../TextInput';
+import { TextInput } from '../TextInput';
 
 interface Props {
   action: (data: FormData) => unknown;
@@ -12,7 +12,7 @@ interface Props {
   categories: CategoryModel[];
 }
 
-export default function ItemForm({ action, item, categories }: Props) {
+export function ItemForm({ action, item, categories }: Props) {
   const router = useRouter();
 
   const onCancel = () => {

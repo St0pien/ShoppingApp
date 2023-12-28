@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 'use client';
 
-import { AppError } from '@/lib/errors/Error';
+import { type AppError } from '@/lib/errors/Error';
 
 interface Props {
   error: AppError;

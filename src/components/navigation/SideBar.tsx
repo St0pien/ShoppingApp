@@ -1,8 +1,8 @@
-import { AppRouteName, AppRoutes } from '@/constant/routes';
+import { AppRouteName, type AppRoutes } from '@/constant/routes';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 const listsSVG = (
   <svg
@@ -58,7 +58,7 @@ interface Props {
   routeName?: string;
 }
 
-export default function SideBar({ isOpen, routeName, routes }: Props) {
+export function SideBar({ isOpen, routeName, routes }: Props) {
   return (
     <AnimatePresence>
       {isOpen && (

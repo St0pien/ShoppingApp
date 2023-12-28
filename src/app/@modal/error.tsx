@@ -1,6 +1,6 @@
 'use client';
 
-import { AppError } from '@/lib/errors/Error';
+import { type AppError } from '@/lib/errors/Error';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 

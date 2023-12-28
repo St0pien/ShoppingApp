@@ -1,11 +1,11 @@
-import { ItemModel } from '@/lib/models/ItemModel';
+import { type ItemModel } from '@/lib/models/ItemModel';
 import Link from 'next/link';
 
 interface Props {
   item: ItemModel;
 }
 
-export default function ItemDisplay({ item }: Props) {
+export function ItemDisplay({ item }: Props) {
   return (
     <div className='w-11/12 flex items-center justify-between m-3 p-2 rounded-md bg-black border-2 border-primary-500'>
       <div>
@@ -14,7 +14,7 @@ export default function ItemDisplay({ item }: Props) {
       </div>
       <div className='flex'>
         <button className='mx-3'>
-          <Link  href={`/items/${item.id}`}>
+          <Link href={`/items/${item.id}`}>
             <svg
               className='w-6 h-6 text-gray-800 dark:text-white'
               aria-hidden='true'

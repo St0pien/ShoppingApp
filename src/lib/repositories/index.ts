@@ -1,7 +1,7 @@
 import { CategoriesKyselyRepository } from './CategoriesKyselyRepository';
 import { ItemsKyselyRepository } from './ItemsKyselyRepository';
-import { CategoriesRepository } from './interfaces/CategoriesReopsitory';
-import { ItemsRepository } from './interfaces/ItemsRepository';
+import { type CategoriesRepository } from './interfaces/CategoriesReopsitory';
+import { type ItemsRepository } from './interfaces/ItemsRepository';
 
 interface Repos {
   items: ItemsRepository;

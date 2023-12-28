@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEventHandler } from 'react';
+import { type MouseEventHandler } from 'react';
 
 interface Props {
   title?: string;
@@ -8,7 +8,7 @@ interface Props {
   toggle: () => void;
 }
 
-export default function TopBar({ title, toggle, isOpen }: Props) {
+export function TopBar({ title, toggle, isOpen }: Props) {
   const onHamburgerTap: MouseEventHandler = (e) => {
     e.stopPropagation();
     toggle();

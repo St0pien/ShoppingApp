@@ -1,4 +1,4 @@
-import ItemForm from '@/components/items/ItemForm';
+import { ItemForm } from '@/components/items/ItemForm';
 import { editItemAction } from '@/lib/actions/items/editItemAction';
 import { repos } from '@/lib/repositories';
 import { notFound } from 'next/navigation';

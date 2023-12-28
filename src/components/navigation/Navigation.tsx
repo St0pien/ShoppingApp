@@ -1,11 +1,11 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
-import TopBar from './TopBar';
-import SideBar from './SideBar';
+import { type ReactNode, useEffect, useState } from 'react';
+import { TopBar } from './TopBar';
+import { SideBar } from './SideBar';
 import { useDrag } from '@use-gesture/react';
 import { usePathname } from 'next/navigation';
-import { AppRoutes, getRouteByPath } from '@/constant/routes';
+import { type AppRoutes, getRouteByPath } from '@/constant/routes';
 
 interface Props {
   routes: AppRoutes;
@@ -14,7 +14,7 @@ interface Props {
 
 const gestureTreshold = 80;
 
-export default function Navigation({ routes, children }: Props) {
+export function Navigation({ routes, children }: Props) {
   const [isOpen, setOpen] = useState(false);
 
   const path = usePathname();

@@ -1,4 +1,4 @@
-import ItemDisplay from '@/components/items/ItemDisplay';
+import { ItemDisplay } from '@/components/items/ItemDisplay';
 import { repos } from '@/lib/repositories';
 
 export default async function ItemsPage() {

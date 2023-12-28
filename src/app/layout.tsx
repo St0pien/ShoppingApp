@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { cookies } from 'next/headers';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Navigation from '@/components/navigation/Navigation';
+import { Navigation } from '@/components/navigation/Navigation';
 import clsx from 'clsx';
 import { appRoutes } from '@/constant/routes';
 import { Toaster } from 'react-hot-toast';

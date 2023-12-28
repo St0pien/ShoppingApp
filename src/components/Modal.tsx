@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 
 interface Props {
   title: string;
@@ -8,18 +8,14 @@ interface Props {
   children: ReactNode;
 }
 
-export default function Modal({ title, description, children }: Props) {
+export function Modal({ title, description, children }: Props) {
   useEffect(() => {
-    let cached: string;
     if (typeof document !== 'undefined') {
-      cached = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
     }
 
     return () => {
-      if (cached) {
-        document.body.style.overflow = cached;
-      }
+      document.body.style.overflow = 'auto';
     };
   }, []);
 

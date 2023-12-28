@@ -1,6 +1,6 @@
-import { ItemModel } from '@/lib/models/ItemModel';
+import { type ItemModel } from '@/lib/models/ItemModel';
 import { pgClient } from '../infrastructure/postgres/db';
-import { ItemsRepository } from './interfaces/ItemsRepository';
+import { type ItemsRepository } from './interfaces/ItemsRepository';
 import { kyselyErrorAdapter } from '../adapters/kyselyErrorAdapter';
 
 export class ItemsKyselyRepository implements ItemsRepository {
