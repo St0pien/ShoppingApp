@@ -3,16 +3,18 @@
 import { type CategoryModel } from '@/lib/models/CategoryModel';
 import { type ItemModel } from '@/lib/models/ItemModel';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { TextInput } from '../TextInput';
+import { api } from '@/trpc/react';
+import toast from 'react-hot-toast';
 
 interface Props {
-  action: (data: FormData) => unknown;
   item?: ItemModel;
   categories: CategoryModel[];
+  onSave?: () => void;
 }
 
-export function ItemForm({ action, item, categories }: Props) {
+export function ItemForm({ item, categories, onSave }: Props) {
   const router = useRouter();
 
   const onCancel = () => {
@@ -22,8 +24,55 @@ export function ItemForm({ action, item, categories }: Props) {
   const [name, setName] = useState(item?.name);
   const [category, setCategory] = useState(item?.category?.id);
 
+  const { mutate: editItem } = api.items.editItem.useMutation({
+    onSuccess() {
+      toast.success('Item has been saved');
+
+      if (onSave) {
+        onSave();
+      } else {
+        router.replace('/items');
+        router.refresh();
+      }
+    },
+    onError(error) {
+      if (error.data?.appError) {
+        toast.error(error.message);
+      }
+
+      for (const key in error.data?.zodError?.fieldErrors) {
+        toast.error(
+          `${key}: ${error.data.zodError.fieldErrors[key]?.join(',')}`
+        );
+      }
+
+      error.data?.zodError?.formErrors.forEach((err) => {
+        toast.error(err);
+      });
+    }
+  });
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+
+    const categoryID = formData.get('category')?.toString();
+
+    if (item) {
+      editItem({
+        id: item.id,
+        name: formData.get('name')?.toString(),
+        category: categoryID ? +categoryID : undefined
+      });
+    }
+  };
+
   return (
-    <form className='flex flex-col items-cenjjter' action={action}>
+    <form
+      onSubmit={(e) => onSubmit(e)}
+      className='flex flex-col items-cenjjter'
+    >
       <TextInput
         className='w-full text-lg'
         name='name'

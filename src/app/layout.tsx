@@ -49,6 +49,13 @@ export default function RootLayout({ children, modal }: Props) {
               iconTheme: {
                 primary: rose['500'],
                 secondary: 'black'
+              },
+              error: {
+                style: {
+                  background: rose['950'],
+                  color: 'white'
+                },
+                duration: 4000
               }
             }}
           />
