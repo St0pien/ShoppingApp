@@ -3,10 +3,11 @@
 import { type CategoryModel } from '@/lib/models/CategoryModel';
 import { type ItemModel } from '@/lib/models/ItemModel';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import { TextInput } from '../TextInput';
 import { api } from '@/trpc/react';
 import toast from 'react-hot-toast';
+import { SelectInput } from '../SelectInput';
 
 interface Props {
   item?: ItemModel;
@@ -20,9 +21,6 @@ export function ItemForm({ item, categories, onSave }: Props) {
   const onCancel = () => {
     router.back();
   };
-
-  const [name, setName] = useState(item?.name);
-  const [category, setCategory] = useState(item?.category?.id);
 
   const { mutate: editItem } = api.items.editItem.useMutation({
     onSuccess() {
@@ -57,6 +55,8 @@ export function ItemForm({ item, categories, onSave }: Props) {
 
     const formData = new FormData(e.target as HTMLFormElement);
 
+    console.log(formData.getAll('category'));
+
     const categoryID = formData.get('category')?.toString();
 
     if (item) {
@@ -71,7 +71,7 @@ export function ItemForm({ item, categories, onSave }: Props) {
   return (
     <form
       onSubmit={(e) => onSubmit(e)}
-      className='flex flex-col items-cenjjter'
+      className='flex flex-col items-center gap-10'
     >
       <TextInput
         className='w-full text-lg'
@@ -79,27 +79,13 @@ export function ItemForm({ item, categories, onSave }: Props) {
         label="Item's name"
         initialValue={item?.name}
       />
-      <input
-        id='name'
-        name='name'
-        className='w-full p-2 rounded-md bg-black border-2 border-gray-800 focus:outline-none focus:border-primary-900'
-        placeholder="Item's name"
-        onChange={(e) => setName(e.target.value)}
-        value={name}
+      <SelectInput
+        className='w-full'
+        options={categories}
+        initial={item?.category}
+        display={(o) => o.name}
+        optionKey={(o) => o.id}
       />
-      <select
-        id='category'
-        name='category'
-        className='w-full p-2 rounded-md bg-black border-2 border-gray-800 focus:outline-none focus:border-primary-800'
-        onChange={(e) => setCategory(+e.target.value)}
-        value={category}
-      >
-        {categories.map(({ id, name }) => (
-          <option key={id} value={id}>
-            {name}
-          </option>
-        ))}
-      </select>
       <div className='mt-8 w-full flex justify-between'>
         <button
           onClick={onCancel}

@@ -56,6 +56,7 @@ export function TextInput({
       </motion.label>
       <input
         id={id}
+        name={name}
         autoComplete='off'
         {...props}
         onChange={(e) => setValue(e.target.value)}
