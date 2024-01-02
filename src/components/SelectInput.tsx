@@ -2,7 +2,7 @@
 
 import { Listbox } from '@headlessui/react';
 import clsx from 'clsx';
-import { ReactNode, Key } from 'react';
+import { ReactNode, Key, useState } from 'react';
 import { useController } from 'react-hook-form';
 
 interface Props<T> {
@@ -27,6 +27,8 @@ export function SelectInput<T>({
     defaultValue: optionKey(defaultValue ?? options[0])
   });
 
+  const [focus, setFocus] = useState(false);
+
   return (
     <div className={clsx('relative', className)}>
       <Listbox
@@ -34,27 +36,29 @@ export function SelectInput<T>({
         onChange={field.onChange}
         name={field.name}
       >
-        <Listbox.Label className='text-gray-400 pl-2 text-lg'>
+        <Listbox.Label className={clsx('text-gray-400 pl-2 text-lg', focus && 'text-primary-700')}>
           Category
         </Listbox.Label>
         <Listbox.Button
           className={clsx(
-            'w-full relative justify-between cursor-default text-left px-3 py-2 rounded-2xl bg-black border-2 border-gray-800'
+            'w-full relative justify-between cursor-default text-left px-3 py-2 rounded-2xl bg-black border-2 border-gray-800',
+            'focus:border-primary-900'
           )}
           ref={field.ref}
-          onBlur={field.onBlur}
+          onFocus={() => setFocus(true)}
+          onBlur={() => {
+            field.onBlur();
+            setFocus(false);
+          }}
         >
-          <span
-            className='block truncate text-white text-lg
-            '
-          >
+          <span className='block truncate text-white text-lg'>
             {display(
               options.find((o) => optionKey(o) === field.value) ?? options[0]
             )}
           </span>
-          <span className='absolute right-0 inset-y-0 flex items-center pr-2 '>
+          <span className='absolute right-0 inset-y-0 flex items-center pr-2'>
             <svg
-              className='w-6 h-6 text-gray-400'
+              className={clsx('w-6 h-6 text-gray-400', focus && 'text-primary-700')}
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'
