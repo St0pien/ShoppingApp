@@ -7,7 +7,7 @@ import { FormEvent } from 'react';
 import { TextInput } from '../TextInput';
 import { api } from '@/trpc/react';
 import toast from 'react-hot-toast';
-import { SelectInput } from '../SelectInput';
+import { OptionalSelectInput } from '../SelectInput';
 
 interface Props {
   item?: ItemModel;
@@ -79,12 +79,12 @@ export function ItemForm({ item, categories, onSave }: Props) {
         label="Item's name"
         initialValue={item?.name}
       />
-      <SelectInput
+      <OptionalSelectInput
         className='w-full'
         options={categories}
         initial={item?.category}
-        display={(o) => o.name}
-        optionKey={(o) => o.id}
+        display={(o) => o?.name ?? '...'}
+        optionKey={(o) => o?.id ?? -1}
       />
       <div className='mt-8 w-full flex justify-between'>
         <button

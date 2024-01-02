@@ -105,3 +105,7 @@ export function SelectInput<T>({
     </div>
   );
 }
+
+export function OptionalSelectInput<T>(props: Props<T | null>) {
+  return <SelectInput {...props} options={[null, ...props.options]} />;
+}
