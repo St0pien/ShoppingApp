@@ -21,7 +21,7 @@ export type UpdateCategories = Updateable<CategoriesTable>;
 interface ItemsTable {
   id: Generated<number>;
   itemName: string;
-  category: number; // FK
+  category: number | null; // FK
 }
 
 interface ListsTable {

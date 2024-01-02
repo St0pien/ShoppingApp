@@ -9,7 +9,7 @@ export interface ItemsRepository {
     id: number,
     data: {
       name?: string;
-      category?: number;
+      category?: number | null;
     }
   ): Promise<void>;
 }

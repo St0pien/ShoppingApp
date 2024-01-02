@@ -61,7 +61,7 @@ export class ItemsKyselyRepository implements ItemsRepository {
 
   update(
     id: number,
-    { name, category }: { name?: string; category?: number }
+    { name, category }: { name?: string; category?: number | null }
   ): Promise<void> {
     return kyselyErrorAdapter(async () => {
       await pgClient

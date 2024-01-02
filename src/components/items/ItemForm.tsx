@@ -3,11 +3,14 @@
 import { type CategoryModel } from '@/lib/models/CategoryModel';
 import { type ItemModel } from '@/lib/models/ItemModel';
 import { useRouter } from 'next/navigation';
-import { FormEvent } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput } from '../TextInput';
 import { api } from '@/trpc/react';
 import toast from 'react-hot-toast';
 import { OptionalSelectInput } from '../SelectInput';
+import { editItemSchema } from '@/server/api/schemas/items';
+import { z } from 'zod';
 
 interface Props {
   item?: ItemModel;
@@ -21,6 +24,11 @@ export function ItemForm({ item, categories, onSave }: Props) {
   const onCancel = () => {
     router.back();
   };
+
+  const methods = useForm({
+    resolver: zodResolver(editItemSchema),
+    mode: 'onChange'
+  });
 
   const { mutate: editItem } = api.items.editItem.useMutation({
     onSuccess() {
@@ -50,54 +58,64 @@ export function ItemForm({ item, categories, onSave }: Props) {
     }
   });
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target as HTMLFormElement);
-
-    console.log(formData.getAll('category'));
-
-    const categoryID = formData.get('category')?.toString();
-
+  const onSubmit: SubmitHandler<z.infer<typeof editItemSchema>> = ({
+    name,
+    category
+  }) => {
     if (item) {
       editItem({
         id: item.id,
-        name: formData.get('name')?.toString(),
-        category: categoryID ? +categoryID : undefined
+        name,
+        category
       });
     }
   };
 
+  const err = methods.formState.errors;
+
   return (
-    <form
-      onSubmit={(e) => onSubmit(e)}
-      className='flex flex-col items-center gap-10'
-    >
-      <TextInput
-        className='w-full text-lg'
-        name='name'
-        label="Item's name"
-        initialValue={item?.name}
-      />
-      <OptionalSelectInput
-        className='w-full'
-        options={categories}
-        initial={item?.category}
-        display={(o) => o?.name ?? '...'}
-        optionKey={(o) => o?.id ?? -1}
-      />
-      <div className='mt-8 w-full flex justify-between'>
-        <button
-          onClick={onCancel}
-          type='button'
-          className='bg-black px-3 py-1 rounded-lg border-[1px] border-primary-950 text-primary-700'
-        >
-          Cancel
-        </button>
-        <button className='bg-black px-3 py-1 rounded-lg border-[1px] border-primary-950 text-primary-700'>
-          Save
-        </button>
-      </div>
-    </form>
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        className='flex flex-col items-center gap-10'
+      >
+        <span className='w-full'>
+          <TextInput
+            className='w-full text-lg'
+            name='name'
+            label="Item's name"
+            defaultValue={item?.name}
+          />
+          <p className='pl-2 text-sm text-primary-500'>
+            {err.name?.message?.toString()}
+          </p>
+        </span>
+        <span className='w-full'>
+          <OptionalSelectInput
+            className='w-full'
+            name='category'
+            options={categories}
+            defaultValue={item?.category}
+            display={(o) => o?.name ?? '...'}
+            optionKey={(o) => o?.id ?? null}
+          />
+          <p className='pl-2 text-sm text-primary-500'>
+            {err.category?.message?.toString()}
+          </p>
+        </span>
+        <div className='mt-8 w-full flex justify-between'>
+          <button
+            onClick={onCancel}
+            type='button'
+            className='bg-black px-3 py-1 rounded-lg border-[1px] border-primary-950 text-primary-700'
+          >
+            Cancel
+          </button>
+          <button className='bg-black px-3 py-1 rounded-lg border-[1px] border-primary-950 text-primary-700'>
+            Save
+          </button>
+        </div>
+      </form>
+    </FormProvider>
   );
 }

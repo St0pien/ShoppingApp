@@ -1,48 +1,49 @@
 'use client';
 
 import clsx from 'clsx';
-import { type InputHTMLAttributes, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useController } from 'react-hook-form';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props {
   name: string;
   label: string;
-  initialValue?: string;
+  defaultValue?: string;
   labelMargin?: number;
+  className?: string;
 }
 
 export function TextInput({
   name,
   label,
-  initialValue,
+  defaultValue,
   labelMargin = 60,
-  ...props
+  className
 }: Props) {
-  const [value, setValue] = useState<string>(initialValue ?? '');
-  const [labelOutside, setLabelOutside] = useState<boolean>(!!initialValue);
   const [focused, setFocused] = useState<boolean>(false);
 
   const onFocus = () => {
     setFocused(true);
-    setLabelOutside(true);
   };
 
   const onBlur = () => {
     setFocused(false);
-    if (!value) {
-      setLabelOutside(false);
-    }
   };
+
+  const { field } = useController({
+    name,
+    defaultValue
+  });
 
   const id = `text-input-${name}`;
 
   return (
-    <div className={clsx('relative', props.className)}>
+    <div className={clsx('relative', className)}>
       <motion.label
         initial={{
           y: -labelMargin
         }}
-        animate={{ y: labelOutside ? -labelMargin : '-50%' }}
+        animate={{ y: !!field.value || focused ? -labelMargin : '-50%' }}
         transition={{
           duration: 0.15
         }}
@@ -56,13 +57,15 @@ export function TextInput({
       </motion.label>
       <input
         id={id}
-        name={name}
+        name={field.name}
         autoComplete='off'
-        {...props}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={field.onChange}
         onFocus={onFocus}
-        onBlur={onBlur}
-        value={value}
+        onBlur={() => {
+          field.onBlur();
+          onBlur();
+        }}
+        value={field.value as string}
         className='w-full p-2 rounded-2xl bg-black border-2 border-gray-800 focus:outline-none focus:border-primary-900'
       />
     </div>

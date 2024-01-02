@@ -2,35 +2,37 @@
 
 import { Listbox } from '@headlessui/react';
 import clsx from 'clsx';
-import { type InputHTMLAttributes, useState, ReactNode, Key } from 'react';
+import { ReactNode, Key } from 'react';
+import { useController } from 'react-hook-form';
 
-interface Props<T> extends InputHTMLAttributes<HTMLSelectElement> {
+interface Props<T> {
+  name: string;
   options: T[];
-  initial?: T;
+  defaultValue?: T;
   display: (option: T) => ReactNode;
-  optionKey: (option: T) => Key;
+  optionKey: (option: T) => T extends null ? Key | null : Key;
+  className?: string;
 }
 
 export function SelectInput<T>({
+  name,
   options,
   display,
-  initial,
+  defaultValue,
   optionKey,
-  ...props
+  className
 }: Props<T>) {
-  const defaultValue = initial
-    ? options.find((o) => optionKey(o) === optionKey(initial))
-    : undefined;
-  const [selectedCategory, setSelectedCategory] = useState(
-    defaultValue ?? options[0]
-  );
+  const { field } = useController({
+    name,
+    defaultValue: optionKey(defaultValue ?? options[0])
+  });
 
   return (
-    <div className={clsx('relative', props.className)}>
+    <div className={clsx('relative', className)}>
       <Listbox
-        value={selectedCategory}
-        onChange={setSelectedCategory}
-        name='category'
+        value={field.value as Key}
+        onChange={field.onChange}
+        name={field.name}
       >
         <Listbox.Label className='text-gray-400 pl-2 text-lg'>
           Category
@@ -39,12 +41,16 @@ export function SelectInput<T>({
           className={clsx(
             'w-full relative justify-between cursor-default text-left px-3 py-2 rounded-2xl bg-black border-2 border-gray-800'
           )}
+          ref={field.ref}
+          onBlur={field.onBlur}
         >
           <span
             className='block truncate text-white text-lg
             '
           >
-            {display(selectedCategory)}
+            {display(
+              options.find((o) => optionKey(o) === field.value) ?? options[0]
+            )}
           </span>
           <span className='absolute right-0 inset-y-0 flex items-center pr-2 '>
             <svg
@@ -73,8 +79,8 @@ export function SelectInput<T>({
                 'ui-active:bg-primary-950',
                 'ui-active:after:hidden'
               )}
-              key={optionKey(option)}
-              value={option}
+              key={optionKey(option)?.toString() ?? 'undefined'}
+              value={optionKey(option)}
             >
               {display(option)}
               <span
@@ -107,5 +113,11 @@ export function SelectInput<T>({
 }
 
 export function OptionalSelectInput<T>(props: Props<T | null>) {
-  return <SelectInput {...props} options={[null, ...props.options]} />;
+  return (
+    <SelectInput
+      {...props}
+      optionKey={(o) => (o ? props.optionKey(o) : null)}
+      options={[null, ...props.options]}
+    />
+  );
 }
