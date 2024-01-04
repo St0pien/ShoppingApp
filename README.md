@@ -11,16 +11,12 @@ yarn dev
 ```
 
 ## Production
+
 ```bash
 yarn next build
 yarn next start
 ```
 
-
 ### TODO
-* ~~Ensure correct `type` imports~~
-* Finish edit item form, improve it's UI
-* ~~Error handling~~
-* ~~replace actions with trpc (to enhance interactivity with react-hot-toast)~~
-* Regex-based path matching to display apropriate title 
-* Prevent loosing unsaved changes in forms (?)
+- Regex-based path matching to display apropriate title
+- Prevent loosing unsaved changes in forms (?)
