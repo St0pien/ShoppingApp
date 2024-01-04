@@ -1,6 +1,5 @@
 import { Config } from 'tailwindcss';
 import { rose, fuchsia } from 'tailwindcss/colors';
-import headlessui from '@headlessui/tailwindcss';
 
 const config: Config = {
   content: [
@@ -16,6 +15,6 @@ const config: Config = {
       }
     }
   },
-  plugins: [headlessui]
+  plugins: []
 };
 export default config;

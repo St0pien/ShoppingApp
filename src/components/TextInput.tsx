@@ -8,7 +8,6 @@ import { useController } from 'react-hook-form';
 interface Props {
   name: string;
   label: string;
-  defaultValue?: string;
   labelMargin?: number;
   className?: string;
 }
@@ -16,7 +15,6 @@ interface Props {
 export function TextInput({
   name,
   label,
-  defaultValue,
   labelMargin = 60,
   className
 }: Props) {
@@ -32,7 +30,6 @@ export function TextInput({
 
   const { field } = useController({
     name,
-    defaultValue
   });
 
   const id = `text-input-${name}`;

@@ -8,9 +8,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput } from '../TextInput';
 import { api } from '@/trpc/react';
 import toast from 'react-hot-toast';
-import { OptionalSelectInput } from '../SelectInput';
-import { editItemSchema } from '@/server/api/schemas/items';
+import { editItemForm } from '@/server/api/schemas/items';
 import { z } from 'zod';
+import { SelectInput } from '../SelectInput';
 
 interface Props {
   item?: ItemModel;
@@ -26,8 +26,12 @@ export function ItemForm({ item, categories, onSave }: Props) {
   };
 
   const methods = useForm({
-    resolver: zodResolver(editItemSchema),
-    mode: 'onChange'
+    resolver: zodResolver(editItemForm),
+    mode: 'onChange',
+    defaultValues: {
+      name: item?.name,
+      category: item?.category
+    }
   });
 
   const { mutate: editItem } = api.items.editItem.useMutation({
@@ -58,15 +62,16 @@ export function ItemForm({ item, categories, onSave }: Props) {
     }
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof editItemSchema>> = ({
+  const onSubmit: SubmitHandler<z.infer<typeof editItemForm>> = ({
     name,
     category
   }) => {
     if (item) {
+      console.log(category);
       editItem({
         id: item.id,
         name,
-        category
+        category: category?.id
       });
     }
   };
@@ -84,21 +89,31 @@ export function ItemForm({ item, categories, onSave }: Props) {
             className='w-full text-lg'
             name='name'
             label="Item's name"
-            defaultValue={item?.name}
           />
           <p className='pl-2 text-sm text-primary-500'>
             {err.name?.message?.toString()}
           </p>
         </span>
         <span className='w-full'>
-          <OptionalSelectInput
+          <SelectInput
+            className='w-full'
+            name='category'
+            label='Category'
+            options={[{ id: null, name: '---' }, ...categories]}
+            defaultValue={item?.category}
+            isSearchable={false}
+            placeholder='---'
+            getOptionLabel={(o) => o.name}
+            getOptionValue={(o) => o.id?.toString() ?? ''}
+          />
+          {/* <SelectInput
             className='w-full'
             name='category'
             options={categories}
             defaultValue={item?.category}
             display={(o) => o?.name ?? '...'}
             optionKey={(o) => o?.id ?? null}
-          />
+          /> */}
           <p className='pl-2 text-sm text-primary-500'>
             {err.category?.message?.toString()}
           </p>
