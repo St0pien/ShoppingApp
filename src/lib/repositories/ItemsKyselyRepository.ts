@@ -74,4 +74,31 @@ export class ItemsKyselyRepository implements ItemsRepository {
         .executeTakeFirstOrThrow();
     });
   }
+
+  add({
+    name,
+    category
+  }: {
+    name: string;
+    category: number | null;
+  }): Promise<void> {
+    return kyselyErrorAdapter(async () => {
+      await pgClient
+        .insertInto('items')
+        .values({
+          itemName: name,
+          category: category
+        })
+        .executeTakeFirstOrThrow();
+    });
+  }
+
+  delete(id: number): Promise<void> {
+    return kyselyErrorAdapter(async () => {
+      await pgClient
+        .deleteFrom('items')
+        .where('id', '=', id)
+        .executeTakeFirstOrThrow();
+    });
+  }
 }

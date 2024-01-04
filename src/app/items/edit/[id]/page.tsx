@@ -1,6 +1,6 @@
+import { notFoundOnError } from '@/components/helpers';
 import { ItemForm } from '@/components/items/ItemForm';
 import { repos } from '@/lib/repositories';
-import { notFound } from 'next/navigation';
 
 interface Props {
   params: {
@@ -9,12 +9,7 @@ interface Props {
 }
 
 export default async function EditItemPage({ params: { id } }: Props) {
-  let item;
-  try {
-    item = await repos.items.fetch(id);
-  } catch (e) {
-    notFound();
-  }
+  const item = await notFoundOnError(() => repos.items.fetch(id));
 
   const categories = await repos.categories.fetchAll();
 

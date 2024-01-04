@@ -12,12 +12,7 @@ interface Props {
   className?: string;
 }
 
-export function TextInput({
-  name,
-  label,
-  labelMargin = 60,
-  className
-}: Props) {
+export function TextInput({ name, label, labelMargin = 60, className }: Props) {
   const [focused, setFocused] = useState<boolean>(false);
 
   const onFocus = () => {
@@ -29,7 +24,7 @@ export function TextInput({
   };
 
   const { field } = useController({
-    name,
+    name
   });
 
   const id = `text-input-${name}`;
@@ -38,7 +33,7 @@ export function TextInput({
     <div className={clsx('relative', className)}>
       <motion.label
         initial={{
-          y: -labelMargin
+          y: !!field.value || focused ? -labelMargin : '-50%'
         }}
         animate={{ y: !!field.value || focused ? -labelMargin : '-50%' }}
         transition={{

@@ -1,3 +1,5 @@
+import { AppRouter } from '@/server/api/root';
+import { inferRouterError } from '@trpc/server';
 import superjson from 'superjson';
 
 export const transformer = superjson;
@@ -11,3 +13,5 @@ function getBaseUrl() {
 export function getUrl() {
   return getBaseUrl() + '/api/trpc';
 }
+
+export type RouterError = inferRouterError<AppRouter>;

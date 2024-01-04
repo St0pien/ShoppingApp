@@ -8,9 +8,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput } from '../TextInput';
 import { api } from '@/trpc/react';
 import toast from 'react-hot-toast';
-import { editItemForm } from '@/server/api/schemas/items';
+import { addItemForm, editItemForm } from '@/server/api/schemas/items';
 import { z } from 'zod';
 import { SelectInput } from '../SelectInput';
+import { onTRPCError } from '../helpers';
 
 interface Props {
   item?: ItemModel;
@@ -18,62 +19,79 @@ interface Props {
   onSave?: () => void;
 }
 
+enum FormType {
+  Edit = 'Edit',
+  Add = 'Add'
+}
+
+const schemas = {
+  [FormType.Edit]: editItemForm,
+  [FormType.Add]: addItemForm
+};
+
 export function ItemForm({ item, categories, onSave }: Props) {
   const router = useRouter();
-
-  const onCancel = () => {
-    router.back();
-  };
+  const categoriesWithNull = [{ id: null, name: '---' }, ...categories];
+  const formType = item ? FormType.Edit : FormType.Add;
 
   const methods = useForm({
-    resolver: zodResolver(editItemForm),
+    resolver: zodResolver(schemas[formType]),
     mode: 'onChange',
     defaultValues: {
-      name: item?.name,
-      category: item?.category
+      name: item?.name ?? '',
+      category: item?.category ?? categoriesWithNull[0]
     }
   });
+
+  const onSuccess = () => {
+    toast.success('Item has been saved');
+
+    if (onSave) {
+      onSave();
+    } else {
+      router.replace('/items');
+      router.refresh();
+    }
+  };
 
   const { mutate: editItem } = api.items.editItem.useMutation({
-    onSuccess() {
-      toast.success('Item has been saved');
-
-      if (onSave) {
-        onSave();
-      } else {
-        router.replace('/items');
-        router.refresh();
-      }
-    },
-    onError(error) {
-      if (error.data?.appError) {
-        toast.error(error.message);
-      }
-
-      for (const key in error.data?.zodError?.fieldErrors) {
-        toast.error(
-          `${key}: ${error.data.zodError.fieldErrors[key]?.join(',')}`
-        );
-      }
-
-      error.data?.zodError?.formErrors.forEach((err) => {
-        toast.error(err);
-      });
-    }
+    onSuccess,
+    onError: onTRPCError
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof editItemForm>> = ({
+  const { mutate: addItem } = api.items.additem.useMutation({
+    onSuccess,
+    onError: onTRPCError
+  });
+
+  const editHandler: SubmitHandler<z.infer<typeof editItemForm>> = ({
     name,
     category
   }) => {
-    if (item) {
-      console.log(category);
-      editItem({
-        id: item.id,
-        name,
-        category: category?.id
-      });
-    }
+    editItem({
+      id: item!.id,
+      name,
+      category: category?.id
+    });
+  };
+
+  const addHandler: SubmitHandler<z.infer<typeof addItemForm>> = ({
+    name,
+    category
+  }) => {
+    addItem({
+      name,
+      category: category.id
+    });
+  };
+
+  const handlers = {
+    [FormType.Add]: addHandler,
+    [FormType.Edit]: editHandler
+  };
+
+  const onCancel = () => {
+    router.back();
   };
 
   const err = methods.formState.errors;
@@ -81,7 +99,7 @@ export function ItemForm({ item, categories, onSave }: Props) {
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={methods.handleSubmit(onSubmit)}
+        onSubmit={methods.handleSubmit(handlers[formType])}
         className='flex flex-col items-center gap-10'
       >
         <span className='w-full'>
@@ -99,8 +117,7 @@ export function ItemForm({ item, categories, onSave }: Props) {
             className='w-full'
             name='category'
             label='Category'
-            options={[{ id: null, name: '---' }, ...categories]}
-            defaultValue={item?.category}
+            options={categoriesWithNull}
             isSearchable={false}
             placeholder='---'
             getOptionLabel={(o) => o.name}
@@ -126,7 +143,7 @@ export function ItemForm({ item, categories, onSave }: Props) {
           >
             Cancel
           </button>
-          <button className='bg-black px-3 py-1 rounded-lg border-[1px] border-primary-950 text-primary-700'>
+          <button className='bg-primary-600 px-3 py-1 rounded-lg border-[1px] border-primary-950 text-white'>
             Save
           </button>
         </div>

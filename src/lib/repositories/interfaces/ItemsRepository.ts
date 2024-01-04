@@ -12,4 +12,8 @@ export interface ItemsRepository {
       category?: number | null;
     }
   ): Promise<void>;
+
+  add(data: { name: string; category: number | null }): Promise<void>;
+
+  delete(id: number): Promise<void>;
 }
