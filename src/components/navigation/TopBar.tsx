@@ -16,14 +16,14 @@ export function TopBar({ title, toggle, isOpen }: Props) {
 
   return (
     <>
-      <header className='w-full h-16 fixed top-0 flex items-center bg-black z-20'>
+      <header className='fixed top-0 z-20 flex h-16 w-full items-center bg-black'>
         <button
-          className='w-16 h-full flex items-center justify-center'
+          className='flex h-full w-16 items-center justify-center'
           onClick={onHamburgerTap}
         >
           {isOpen ? (
             <svg
-              className='w-6 h-6 text-gray-800 dark:text-white'
+              className='h-6 w-6 text-gray-800 dark:text-white'
               aria-hidden='true'
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -39,7 +39,7 @@ export function TopBar({ title, toggle, isOpen }: Props) {
             </svg>
           ) : (
             <svg
-              className='w-6 h-6 text-gray-800 dark:text-white'
+              className='h-6 w-6 text-gray-800 dark:text-white'
               aria-hidden='true'
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -55,7 +55,7 @@ export function TopBar({ title, toggle, isOpen }: Props) {
             </svg>
           )}
         </button>
-        <h1 className='text-2xl mx-4 text-primary-800 font-bold'>{title}</h1>
+        <h1 className='mx-4 text-2xl font-bold text-primary-800'>{title}</h1>
       </header>
     </>
   );

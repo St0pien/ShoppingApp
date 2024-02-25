@@ -135,15 +135,15 @@ export function ItemForm({ item, categories, onSave }: Props) {
             {err.category?.message?.toString()}
           </p>
         </span>
-        <div className='mt-8 w-full flex justify-between'>
+        <div className='mt-8 flex w-full justify-between'>
           <button
             onClick={onCancel}
             type='button'
-            className='bg-black px-3 py-1 rounded-lg border-[1px] border-primary-950 text-primary-700'
+            className='rounded-lg border-[1px] border-primary-950 bg-black px-3 py-1 text-primary-700'
           >
             Cancel
           </button>
-          <button className='bg-primary-600 px-3 py-1 rounded-lg border-[1px] border-primary-950 text-white'>
+          <button className='rounded-lg border-[1px] border-primary-950 bg-primary-600 px-3 py-1 text-white'>
             Save
           </button>
         </div>

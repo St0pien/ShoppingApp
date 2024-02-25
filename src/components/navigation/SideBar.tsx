@@ -6,7 +6,7 @@ import { type ReactNode } from 'react';
 
 const listsSVG = (
   <svg
-    className='w-8 h-8'
+    className='h-8 w-8'
     aria-hidden='true'
     xmlns='http://www.w3.org/2000/svg'
     fill='none'
@@ -23,7 +23,7 @@ const listsSVG = (
 
 const itemsSVG = (
   <svg
-    className='w-8 h-8 '
+    className='h-8 w-8 '
     aria-hidden='true'
     xmlns='http://www.w3.org/2000/svg'
     fill='currentColor'
@@ -36,7 +36,7 @@ const itemsSVG = (
 
 const categoriesSVG = (
   <svg
-    className='w-8 h-8'
+    className='h-8 w-8'
     aria-hidden='true'
     xmlns='http://www.w3.org/2000/svg'
     fill='currentColor'
@@ -63,7 +63,7 @@ export function SideBar({ isOpen, routeName, routes }: Props) {
     <AnimatePresence>
       {isOpen && (
         <motion.nav
-          className='w-2/3 h-screen fixed top-0 left-0 pt-20 rounded-md bg-gradient-to-r from-black to-gray-900 ring-3 ring-red-900 z-10'
+          className='ring-3 fixed left-0 top-0 z-10 h-screen w-2/3 rounded-md bg-gradient-to-r from-black to-gray-900 pt-20 ring-red-900'
           initial={{ x: '-100%' }}
           animate={{ x: '0' }}
           exit={{ x: '-100%' }}
@@ -74,7 +74,7 @@ export function SideBar({ isOpen, routeName, routes }: Props) {
               <div
                 className={clsx(
                   routeName == name && 'text-primary-700',
-                  'w-full pl-6 flex items-center text-2xl py-3'
+                  'flex w-full items-center py-3 pl-6 text-2xl'
                 )}
               >
                 <span className='mr-6'>{icons[name as AppRouteName]}</span>

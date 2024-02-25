@@ -15,7 +15,7 @@ export default async function EditItemPage({ params: { id } }: Props) {
 
   return (
     <div className='w-full'>
-      <h1 className='text-3xl text-primary-600 font-bold mb-10'>Edit item</h1>
+      <h1 className='mb-10 text-3xl font-bold text-primary-600'>Edit item</h1>
       <ItemForm item={item} categories={categories} />
     </div>
   );

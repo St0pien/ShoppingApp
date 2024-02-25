@@ -13,7 +13,7 @@ export default async function DeleteItemPage({ params: { id } }: Props) {
 
   return (
     <>
-      <h1 className='text-3xl text-primary-600 font-bold mb-4'>Delete item</h1>
+      <h1 className='mb-4 text-3xl font-bold text-primary-600'>Delete item</h1>
       <ItemDelete item={item} />
     </>
   );

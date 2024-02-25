@@ -2,19 +2,19 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className='flex items-center flex-col'>
-      <h1 className='text-6xl font-bold text-primary-600 m-6j'>404</h1>
+    <div className='flex flex-col items-center'>
+      <h1 className='m-6j text-6xl font-bold text-primary-600'>404</h1>
       <h1 className='text-lg'>
         This page could not be found! Probably doesn&apos;t exist
       </h1>
       <div className='w-full'>
         <Link
-          className='group w-fit m-5 text-xl text-primary-700 hover:text-primary-400 flex items-center hover:underline'
+          className='group m-5 flex w-fit items-center text-xl text-primary-700 hover:text-primary-400 hover:underline'
           href='/'
         >
           Back to home
           <svg
-            className='fill-primary-600 w-6 h-6 mx-2 group-hover:fill-primary-400'
+            className='mx-2 h-6 w-6 fill-primary-600 group-hover:fill-primary-400'
             width='52'
             height='52'
             version='1.1'

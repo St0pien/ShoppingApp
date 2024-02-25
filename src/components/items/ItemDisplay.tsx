@@ -7,7 +7,7 @@ interface Props {
 
 export function ItemDisplay({ item }: Props) {
   return (
-    <div className='w-11/12 flex items-center justify-between m-3 p-2 rounded-md bg-black border-2 border-primary-500'>
+    <div className='m-3 flex w-11/12 items-center justify-between rounded-md border-2 border-primary-500 bg-black p-2'>
       <div>
         <h3 className='text-sm text-gray-500'>{item.category?.name}</h3>
         <h2 className='text-xl font-bold'>{item.name}</h2>
@@ -16,7 +16,7 @@ export function ItemDisplay({ item }: Props) {
         <button className='mx-3'>
           <Link href={`/items/edit/${item.id}`}>
             <svg
-              className='w-6 h-6 text-gray-800 dark:text-white'
+              className='h-6 w-6 text-gray-800  dark:text-white'
               aria-hidden='true'
               xmlns='http://www.w3.org/2000/svg'
               fill='currentColor'
@@ -30,7 +30,7 @@ export function ItemDisplay({ item }: Props) {
         <button className='mx-3'>
           <Link href={`/items/delete/${item.id}`}>
             <svg
-              className='w-6 h-6 text-gray-800 dark:text-white'
+              className='h-6 w-6 text-gray-800 dark:text-white'
               aria-hidden='true'
               xmlns='http://www.w3.org/2000/svg'
               fill='currentColor'

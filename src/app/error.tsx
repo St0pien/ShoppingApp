@@ -21,17 +21,17 @@ export default function Error({ error }: Props) {
   }
 
   return (
-    <div className='flex items-center flex-col'>
-      <h1 className='text-6xl font-bold text-primary-600 m-6j'>{status}</h1>
+    <div className='flex flex-col items-center'>
+      <h1 className='m-6 text-6xl font-bold text-primary-600'>{status}</h1>
       <h1 className='text-lg'>{message}</h1>
-      <div className='w-full flex justify-center'>
+      <div className='flex w-full justify-center'>
         <button
           onClick={() => window.location.reload()}
-          className='group w-fit m-5 text-xl text-primary-700 hover:text-primary-400 flex items-center hover:underline'
+          className='group m-5 flex w-fit items-center text-xl text-primary-700 hover:text-primary-400 hover:underline'
         >
           Retry
           <svg
-            className='fill-primary-600 w-6 h-6 mx-2 group-hover:fill-primary-400 -scale-x-100'
+            className='mx-2 h-6 w-6 -scale-x-100 fill-primary-600 group-hover:fill-primary-400'
             xmlns='http://www.w3.org/2000/svg'
             height='16'
             width='16'

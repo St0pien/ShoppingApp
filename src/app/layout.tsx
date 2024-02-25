@@ -28,7 +28,7 @@ export default function RootLayout({ children, modal }: Props) {
       <body
         className={clsx(
           inter.className,
-          'bg-gradient-to-b from-gray-950 touch-pan-y'
+          'touch-pan-y bg-gradient-to-b from-gray-950'
         )}
       >
         <TRPCReactProvider cookies={cookies().toString()}>

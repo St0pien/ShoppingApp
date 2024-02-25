@@ -40,7 +40,7 @@ export function TextInput({ name, label, labelMargin = 60, className }: Props) {
           duration: 0.15
         }}
         className={clsx(
-          'block absolute pointer-events-none p-2 text-gray-400 top-1/2 -translate-y-1/2',
+          'pointer-events-none absolute top-1/2 block -translate-y-1/2 p-2 text-gray-400',
           focused && 'text-primary-700'
         )}
         htmlFor={id}
@@ -58,7 +58,7 @@ export function TextInput({ name, label, labelMargin = 60, className }: Props) {
           onBlur();
         }}
         value={field.value as string}
-        className='w-full p-2 rounded-2xl bg-black border-2 border-gray-800 focus:outline-none focus:border-primary-900'
+        className='w-full rounded-2xl border-2 border-gray-800 bg-black p-2 focus:border-primary-900 focus:outline-none'
       />
     </div>
   );

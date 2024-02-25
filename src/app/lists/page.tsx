@@ -3,7 +3,7 @@ export default function ListsPage() {
 
   return (
     <>
-      <div className='w-full mb-12'>
+      <div className='mb-12 w-full'>
         <h1 className='text-4xl tracking-wider text-primary-500'>
           Shopping list
         </h1>

@@ -12,9 +12,9 @@ export default async function ItemsPage() {
       ))}
 
       <Link href='/items/add'>
-        <button className='fixed flex items-center justify-center bottom-16 right-8 w-16 h-16 rounded-full bg-primary-600 select-none z-0'>
+        <button className='fixed bottom-16 right-8 z-0 flex h-16 w-16 select-none items-center justify-center rounded-full bg-primary-600'>
           <svg
-            className='w-10 h-10'
+            className='h-10 w-10'
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'

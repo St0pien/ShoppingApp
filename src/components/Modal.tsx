@@ -20,9 +20,9 @@ export function Modal({ title, description, children }: Props) {
   }, []);
 
   return (
-    <div className='fixed top-0 left-0 w-screen h-screen flex flex-col items-center justify-center z-10'>
-      <div className='absolute top-0 left-0 w-screen h-screen bg-black bg-opacity-60'></div>
-      <div className='fixed top-32 left-1/2 -translate-x-1/2 px-10 max-w-0 py-5 min-w-[80%] rounded-xl bg-gradient-to-b from-gray-900 to-black shadow-xl shadow-primary-950'>
+    <div className='fixed left-0 top-0 z-10 flex h-screen w-screen flex-col items-center justify-center'>
+      <div className='absolute left-0 top-0 h-screen w-screen bg-black bg-opacity-60'></div>
+      <div className='fixed left-1/2 top-32 min-w-[80%] max-w-0 -translate-x-1/2 rounded-xl bg-gradient-to-b from-gray-900 to-black px-10 py-5 shadow-xl shadow-primary-950'>
         <div className='text-3xl font-bold text-primary-600'>{title}</div>
         <div className='mb-8'>{description}</div>
         {children}

@@ -29,20 +29,20 @@ export function ItemDelete({ item }: Props) {
 
   return (
     <div>
-      <p className='text-xl text-center'>Are you sure you want to delete:</p>
-      <h2 className='text-2xl font-bold text-primary-600 my-6 text-center'>
+      <p className='text-center text-xl'>Are you sure you want to delete:</p>
+      <h2 className='my-6 text-center text-2xl font-bold text-primary-600'>
         {item.name}
       </h2>
-      <div className='w-full mt-4 flex justify-between'>
+      <div className='mt-4 flex w-full justify-between'>
         <button
           onClick={onCancel}
-          className='bg-black px-3 py-1 rounded-lg border-[1px] border-primary-950 text-primary-700'
+          className='rounded-lg border-[1px] border-primary-950 bg-black px-3 py-1 text-primary-700'
         >
           Cancel
         </button>
         <button
           onClick={() => deleteItem(item.id)}
-          className='bg-primary-600 text-white px-3 py-1 rounded-lg border-[1px] border-primary-950'
+          className='rounded-lg border-[1px] border-primary-950 bg-primary-600 px-3 py-1 text-white'
         >
           Delete
         </button>
