@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { useController } from 'react-hook-form';
 import Select, {
@@ -32,7 +32,7 @@ export function SelectInput<T>({ name, label, ...props }: Props<T>) {
   return (
     <div>
       <label
-        className={clsx(
+        className={cn(
           'p-2 text-lg text-gray-400',
           focused && 'text-primary-800'
         )}
@@ -53,20 +53,20 @@ export function SelectInput<T>({ name, label, ...props }: Props<T>) {
         formatGroupLabel={Label}
         classNames={{
           control: ({ isFocused }) =>
-            clsx(
+            cn(
               'p-2 text-lg rounded-2xl border-2 border-gray-800 bg-black',
               isFocused && 'border-primary-900'
             ),
           menu: () =>
             'bg-black rounded-md shadow-md border-2 border-primary-950',
           option: ({ isSelected }) =>
-            clsx(
+            cn(
               'py-3 px-5 relative',
               'after:content-[""] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-11/12 after:h-[1px] after:bg-gray-800 last:after:hidden',
               isSelected && 'text-primary-500 bg-primary-950 after:hidden'
             ),
 
-          dropdownIndicator: () => clsx(focused && 'text-primary-800')
+          dropdownIndicator: () => cn(focused && 'text-primary-800')
         }}
       />
     </div>

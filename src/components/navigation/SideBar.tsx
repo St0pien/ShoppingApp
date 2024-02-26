@@ -1,5 +1,5 @@
 import { AppRouteName, type AppRoutes } from '@/constant/routes';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { type ReactNode } from 'react';
@@ -72,9 +72,9 @@ export function SideBar({ isOpen, routeName, routes }: Props) {
           {Object.entries(routes).map(([name, route]) => (
             <Link key={name} href={route.path}>
               <div
-                className={clsx(
-                  routeName == name && 'text-primary-700',
-                  'flex w-full items-center py-3 pl-6 text-2xl'
+                className={cn(
+                  'flex w-full items-center py-3 pl-6 text-2xl text-white',
+                  routeName == name && 'text-primary-700'
                 )}
               >
                 <span className='mr-6'>{icons[name as AppRouteName]}</span>

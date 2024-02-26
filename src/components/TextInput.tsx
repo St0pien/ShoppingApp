@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useController } from 'react-hook-form';
@@ -30,7 +30,7 @@ export function TextInput({ name, label, labelMargin = 60, className }: Props) {
   const id = `text-input-${name}`;
 
   return (
-    <div className={clsx('relative', className)}>
+    <div className={cn('relative', className)}>
       <motion.label
         initial={{
           y: !!field.value || focused ? -labelMargin : '-50%'
@@ -39,7 +39,7 @@ export function TextInput({ name, label, labelMargin = 60, className }: Props) {
         transition={{
           duration: 0.15
         }}
-        className={clsx(
+        className={cn(
           'pointer-events-none absolute top-1/2 block -translate-y-1/2 p-2 text-gray-400',
           focused && 'text-primary-700'
         )}

@@ -23,7 +23,7 @@ export function TopBar({ title, toggle, isOpen }: Props) {
         >
           {isOpen ? (
             <svg
-              className='h-6 w-6 text-gray-800 dark:text-white'
+              className='h-6 w-6 text-gray-800 text-white'
               aria-hidden='true'
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -39,7 +39,7 @@ export function TopBar({ title, toggle, isOpen }: Props) {
             </svg>
           ) : (
             <svg
-              className='h-6 w-6 text-gray-800 dark:text-white'
+              className='h-6 w-6 text-gray-800 text-white'
               aria-hidden='true'
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -55,7 +55,7 @@ export function TopBar({ title, toggle, isOpen }: Props) {
             </svg>
           )}
         </button>
-        <h1 className='mx-4 text-2xl font-bold text-primary-800'>{title}</h1>
+        <h1 className='text-primary-800 mx-4 text-2xl font-bold'>{title}</h1>
       </header>
     </>
   );

@@ -4,11 +4,11 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Navigation } from '@/components/navigation/Navigation';
-import clsx from 'clsx';
 import { appRoutes } from '@/constant/routes';
 import { Toaster } from 'react-hot-toast';
 import { rose } from 'tailwindcss/colors';
 import { TRPCReactProvider } from '@/trpc/react';
+import { cn } from '@/lib/utils';
 
 interface Props {
   children: ReactNode;
@@ -26,9 +26,9 @@ export default function RootLayout({ children, modal }: Props) {
   return (
     <html lang='en'>
       <body
-        className={clsx(
+        className={cn(
           inter.className,
-          'touch-pan-y bg-gradient-to-b from-gray-950'
+          'touch-pan-y bg-gradient-to-b to-black from-gray-950'
         )}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
